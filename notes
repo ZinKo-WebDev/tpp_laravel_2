@@ -1,0 +1,90 @@
+
+1 => php artisan make:seeder AdminUserSeeder
+2 => database/seeders/AdminUserSeeder.php
+
+      <?php
+
+      namespace Database\Seeders;
+
+      use Illuminate\Database\Seeder;
+      use Illuminate\Support\Facades\Hash;
+      use App\Models\User;
+
+      class AdminUserSeeder extends Seeder
+      {
+          /**
+           * Run the database seeds.
+           *
+           * @return void
+           */
+          public function run()
+          {
+              User::updateOrCreate(
+                  ['email' => 'admin@example.com'], // Assuming email is unique
+                  [
+                      'name' => 'Admin User',
+                      'password' => Hash::make('password'), // Replace with a secure password
+                      'is_admin' => true, // Assuming you have an is_admin field
+                  ]
+              );
+          }
+      }
+
+-------------------------------------------------------------------------------------
+
+3 => database/seeders/DatabaseSeeder.php
+
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $this->call([
+            AdminUserSeeder::class,
+        ]);
+    }
+}
+ -------------------------------------------------------------------------------
+
+ 4 => php artisan db:seed --class=AdminUserSeeder [isn't work]
+
+ *****************************************************************************
+
+ 1 => php artisan tinker
+
+ 2 => $user = \App\Models\User::updateOrCreate(
+          ['email' => 'admin@example.com'],
+          [
+              'name' => 'Admin User',
+              'password' => \Illuminate\Support\Facades\Hash::make('password'),
+              'is_admin' => true,
+          ]
+      );
+
+***************************************************************************
+
+ create 3 tables => user -> role -> role_user
+
+1 => php artisan make:model Role -m
+2 =>  php artisan make:seeder RoleSeeder
+
+
+------------------------------------------------------------------------------------------------
+1 => create permission controller
+2 => create crud function
+3 => route
+
+4 => folder role-permission/permission/index.blade.php
+
+
+
