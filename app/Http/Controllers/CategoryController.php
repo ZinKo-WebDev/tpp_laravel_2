@@ -4,53 +4,51 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-
 class CategoryController extends Controller
 {
-    public function index()
+    public function __construct()
     {
+        $this->middleware('auth');
+    }
+    public function index(){
 
-        $categories = Category::all();
-        return view('category.index', compact("categories"));
+        $data = Category::all();
+
+        return view( 'categories.index', compact('data'));
     }
-    public function result()
-    {
-        return view('category.result');
+    public function result(){
+        return view('categories.result');
     }
-    public function create()
-    {
-        return view('category.create');
+
+    public function create(){
+        return view('categories.create');
     }
-    public function store(Request $request)
-    {
+
+    public function store(Request $request){
+
         Category::create([
-            "name" => $request->name,
+            'name' => $request->name,
         ]);
         return redirect()->route('categoryIndex');
     }
 
-    public function edit($id)
-    {
-
+    public function edit($id){
         $data = Category::where('id', $id)->first();
-        return view('category.edit', compact('data'));
+        return view('categories.edit', compact('data'));
     }
 
-
-    public function update(Request $request, $id)
-    {
-        $data = Category::where('id', $id)->first();
+    public function update(Request $request){
+        $data = Category::where('id', $request->id)->first();
         $data->update([
-            'name' => $request->input('name'),
+            'name' => $request->name,
         ]);
-
         return redirect()->route('categoryIndex');
     }
 
-    public function delete(Category $id)
-    {
-
-        $id->delete();
+    public function destroy(Category $deldata){
+        $deldata->delete();
         return redirect()->route('categoryIndex');
     }
+
 }
+
