@@ -25,6 +25,7 @@
             </div>
             <div class="form-group mb-4">
                 <label for="productImages">Images</label>
+                {{--   FeatureDay05 dev_phyoewai  --}}
                 <input type="file" name="images[]" class="form-control-file" id="productImages" multiple>
                 @error('images')
                 <span class="text-danger">* Image Error!</span>

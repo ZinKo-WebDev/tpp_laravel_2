@@ -24,7 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-
+//        $user = Auth::user();
+//        dd($user);
         return view('index');
+    }
+    public function mIndex(){
+        return view('layouts.master');
     }
 }

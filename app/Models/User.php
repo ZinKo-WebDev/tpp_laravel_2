@@ -19,6 +19,7 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+    public $guard_name = 'api';
 
     protected $hidden = [
         'password',

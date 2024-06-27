@@ -10,7 +10,7 @@ class PermissionController extends Controller
 {
     public function index(){
         $permissions = Permission::get();
-        return view('role-permission.permission.index',[
+        return view('role-permission.permission.index',[ // compact data to index.blade
             'permissions' => $permissions
         ]);
     }
@@ -24,7 +24,7 @@ class PermissionController extends Controller
         return redirect('permissions')->with('success','Permission created successfully');
     }
     public function edit(Permission $permission){
-
+//        return ($permission);
         return view('role-permission.permission.edit',[
             'permission' => $permission
         ]);

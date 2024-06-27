@@ -1,6 +1,11 @@
-  <!Doctype html>
- <html class="no-js" lang="en">
 
+    <!Doctype html>
+    <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+    <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+    <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <html class="no-js" lang="en">
+    <!--<![endif]-->
 
     <head>
         <meta charset="utf-8">
@@ -26,6 +31,18 @@
         <link rel="stylesheet" href="assets/css/style.css">
 
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+        <script>
+            function toggleForm() {
+                var x = document.getElementById("myDiv");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+
+                    x.style.display = "none";
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -70,6 +87,7 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="menu-icon fa fa-th"></i><a href="{{route('roles.index')}}">Roles</a></li>
                             <li><i class="menu-icon fa fa-th"></i><a href="{{route('permissions.index')}}">Permissions</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="{{route('users.index')}}">Users</a></li>
                         </ul>
                     </li>
 
@@ -231,11 +249,7 @@
                 </div>
             </div>
         </div>
-        <div class=" container mt-5">
-            <a href="{{ url('roles') }}" class="btn btn-sm btn-outline-success mx-2">Roles</a>
-            <a href="{{ url('permissions') }}" class="btn btn-sm btn-outline-info mx-2">Permissions</a>
-
-        </div>
+        @include('role-permission.nav-links')
         <div class="content mt-3">
             <div class="animated fadeIn">
                 <div class="row">
@@ -249,9 +263,23 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4>Permissions
-                                    <a href="{{url('permissions/create')}}" class="btn btn-sm btn-outline-primary" >Add Permission </a>
+                                    <button href="" class="btn btn-sm btn-outline-primary" onclick="toggleForm()" >Add Permission </button>
                                 </h4>
                             </div>
+
+                            <div id="myDiv" style="display: none" class="container">
+                                <form action="{{url('permissions')}}" method="POST">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="">Permission Name</label>
+                                        <input type="text" name="name" class="form-control" autocomplete="off"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <button class="btn btn-sm btn-warning text-white" type="submit">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+
                             <div class="card-body">
                                 <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                     <thead>

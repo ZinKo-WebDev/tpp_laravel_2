@@ -1,5 +1,5 @@
 
-    <!doctype html>
+<!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
@@ -31,6 +31,19 @@
     <link rel="stylesheet" href="assets/css/style.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+    <script>
+        function toggleForm() {
+            var x = document.getElementById("myDiv");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+
+                x.style.display = "none";
+            }
+        }
+
+    </script>
 </head>
 
 <body>
@@ -78,6 +91,7 @@
                         <li><i class="menu-icon fa fa-th"></i><a href="{{route('users.index')}}">Users</a></li>
                     </ul>
                 </li>
+
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>
@@ -236,55 +250,83 @@
             </div>
         </div>
     </div>
-
+    @include('role-permission.nav-links')
     <div class="content mt-3">
         <div class="animated fadeIn">
             <div class="row">
 
                 <div class="col-md-12">
+                    @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show">
+                            {{session('success')}}
+                        </div>
+                    @endif
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Products Table</strong>
+                            <h4>User
+                                <button href="" class="btn btn-sm btn-outline-primary float-end"
+                                        onclick="toggleForm()">Add User </button>
+                            </h4>
                         </div>
+
+                        <div id="myDiv" class="container" style="display: none">
+                            <form action="{{url('users')}}" method="POST">
+                                @csrf
+
+                                <div class="mb-3">
+                                    <label for="">User Name</label>
+                                    <input type="text" name="name" class="form-control" autocomplete="off"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="">Email</label>
+                                    <input type="email" name="email" class="form-control" autocomplete="off"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="">Password</label>
+                                    <input type="password" name="password" class="form-control" autocomplete="off"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="">Roles</label>
+                                    <select name="roles[]" class="form-control" multiple>
+                                        <option value="">Select Role</option>
+                                        @foreach($roles as $role)
+                                            <option value="{{$role}}">{{$role}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <button class="btn btn-sm btn-warning text-white" type="submit">Save</button>
+                                </div>
+                            </form>
+                        </div>
+
                         <div class="card-body">
                             <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                 <thead>
                                 <tr class="text-center">
                                     <th scope="col">ID</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Type</th>
-                                    <th scope="col">Images</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Quantity</th>
-                                    <th>Action</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Roles</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($product_item as $p)
+                                @foreach($users as $user)
                                     <tr>
-                                        <td>{{$p->id}}</td>
-                                        <td>{{$p->name}}</td>
-                                        <td>{{$p->type}}</td>
+                                        <td>{{$user->id}}</td>
+                                        <td>{{$user->name}}</td>
+                                        <td>{{$user->email}}</td>
                                         <td>
-                                            @foreach($p->images as $image)
-                                                <img src="{{asset('uploads/'.$image->image_path)}}" width="40px" height="20px" class="img-thumbnail mb-1">
-                                            @endforeach
+                                            @if(!empty($user->getRoleNames()))
+                                                @foreach($user->getRoleNames() as $rolename)
+                                                    <label class="badge bg-info text-white">{{$rolename}}</label>
+                                                @endforeach
+                                            @endif
                                         </td>
-                                        <td>{{$p->price}}</td>
-                                        <td>{{$p->quantity}}</td>
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-4">
-                                                    <a href="{{route('productEdit', ['id' => $p->id])}}" class="btn btn-sm btn-warning text-white">Edit</a>
-                                                </div>
-                                                <div class="col-4">
-                                                    <form action="{{route('productDelete', $p->id)}}" method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="btn btn-sm btn-danger">Delete</button>
-                                                    </form>
-                                                </div>
-                                            </div>
+                                        <td class="text-center">
+                                            <a href="{{url('users/'.$user->id.'/edit')}}" class="btn btn-sm btn-outline-warning mx-3" >Edit</a>
+                                            <a href="{{url('users/'.$user->id.'/delete')}}" class="btn btn-sm btn-outline-danger" >Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach

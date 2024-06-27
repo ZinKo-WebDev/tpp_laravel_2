@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('type');
-         
+            ##-> FeatureDay05 dev_phyoewai
             $table->string('image')->nullable();
             $table->integer('price');
             $table->integer('quantity');

@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function index(){
 
         $data = Category::all();
-
+//        return view('categories.index', compact('data'));
         return view( 'categories.index', compact('data'));
     }
     public function result(){
@@ -25,7 +25,8 @@ class CategoryController extends Controller
     }
 
     public function store(Request $request){
-
+//        $data = $request->all();
+//        dd($data);
         Category::create([
             'name' => $request->name,
         ]);

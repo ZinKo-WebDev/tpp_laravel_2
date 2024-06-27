@@ -19,6 +19,9 @@
 
         <form method="post" action="{{ route('productUpdate', $data->id) }}" enctype="multipart/form-data">
             @csrf
+            {{--    FeatureDay05 dev_phyoewai--}}
+            {{--    @method('PUT')--}}
+
             <div class="form-group mb-4">
                 <label for="productName">Name</label>
                 <input type="text" name="name" class="form-control" id="productName" value="{{ $data->name }}">
@@ -33,6 +36,7 @@
                 <label for="productImages">Images</label>
                 <input type="file" name="images[]" class="form-control-file" id="productImages" multiple>
                 <div>
+                    {{--    FeatureDay05 dev_phyoewai--}}
                     @foreach ($data->images as $image)
                         <img src="{{ asset('uploads/'.$image->image_path) }}" alt="Product Image" style="width: 100px; height: 100px;">
                     @endforeach

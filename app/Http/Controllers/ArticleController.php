@@ -36,7 +36,11 @@ class ArticleController extends Controller
     }
 
     public function update(Request $request,$id){
-        
+        ## call null value
+        ## $data = Article::where('id', $request->id)->first();
+        /*
+         *      Error handling
+         */
         $data = Article::findOrFail($id);
         $data->update([
             'name' => $request->name,

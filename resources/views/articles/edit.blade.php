@@ -9,6 +9,7 @@
         </div>
         <form action="{{ route('articles.update', $data->id) }}" method="POST">
             @csrf
+            {{--    @method('dev_phyoewai')    --}}
             @method('PUT')
             <div class="col-md-6 offset-md-3">
                 <div class="mt-4">

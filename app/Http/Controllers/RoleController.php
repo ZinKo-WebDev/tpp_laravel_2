@@ -53,6 +53,7 @@ class RoleController extends Controller
     {
         $permissions = Permission::get();
         $role = Role::findOrFail($roleId);
+        // checked db data for checkbox
         $rolePermissions = DB::table("role_has_permissions")
             ->where('role_has_permissions.role_id', $roleId)
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
@@ -71,7 +72,6 @@ class RoleController extends Controller
         ]);
         $role = Role::findOrFail($roleId);
         $role->syncPermissions($request->permission);
-        return redirect(url('roles'))->with('success','Permisson updated successfully');
-
+        return redirect()->back()->with('success','Permission added to role successfully');
     }
 }

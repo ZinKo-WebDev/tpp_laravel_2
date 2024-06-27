@@ -8,6 +8,7 @@
         <div class="col-6 mb-4">
             <a href="{{route('categoryIndex')}}" class="btn btn-sm btn-dark text-white"><i class="fa-solid fa-arrow-left-long"></i>back</a>
         </div>
+        {{--{{route('categoryStore')}}--}}
         <form method="post" action="{{route('categoryUpdate',$data->id)}}"
               class="d-flex justify-content-center">
             @csrf
