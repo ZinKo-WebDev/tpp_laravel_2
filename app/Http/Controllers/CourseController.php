@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repository\CourseRepositoryInterface;
 use App\Models\Course;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
+    public function __construct(private CourseRepositoryInterface $courseRepository){
+
+    }
     public function index()
     {
-        $courses = Course::all();
+  $courses= $this->courseRepository->all();
         return view('courses.index', compact('courses'));
     }
 
@@ -20,11 +24,7 @@ class CourseController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-
-        Course::create($request->all());
+       $this->courseRepository->create($request);
 
         return redirect()->route('courses.index');
     }
@@ -36,18 +36,14 @@ class CourseController extends Controller
 
     public function update(Request $request, Course $course)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
 
-        $course->update($request->all());
-
+$this->courseRepository->update($request, $course);
         return redirect()->route('courses.index');
     }
 
     public function destroy(Course $course)
     {
-        $course->delete();
+        $this->courseRepository->delete($course);
         return redirect()->route('courses.index');
     }
 }
