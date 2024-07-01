@@ -63,9 +63,16 @@ class ProductRepository implements ProductRepositoryInterface
         }
     }
 
-    public function delete($product)
+    public function delete($productdel)
     {
-
+        foreach ($productdel->images as $image) {
+            $imagePath = public_path($image->image_path);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+            $image->delete();
+        }
+        $productdel->delete();
     }
 
     public function find($id)

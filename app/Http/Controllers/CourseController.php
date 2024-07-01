@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Repository\CourseRepositoryInterface;
 use App\Models\Course;
 use Illuminate\Http\Request;

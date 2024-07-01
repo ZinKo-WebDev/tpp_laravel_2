@@ -278,9 +278,9 @@
                                                     <a href="{{route('productEdit', ['id' => $p->id])}}" class="btn btn-sm btn-warning text-white">Edit</a>
                                                 </div>
                                                 <div class="col-4">
-                                                    <form action="{{route('productDelete', $p->id)}}" method="post">
+                                                    <form action="{{route('productDelete', $p->id)}}" method="POST">
                                                         @csrf
-                                                        @method('DELETE')
+                                                        @method('POST')
                                                         <button class="btn btn-sm btn-danger">Delete</button>
                                                     </form>
                                                 </div>

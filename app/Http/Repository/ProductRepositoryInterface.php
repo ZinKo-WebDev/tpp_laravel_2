@@ -8,9 +8,11 @@ interface ProductRepositoryInterface
 
     public function create(array $data);
 
-    public function update(array $data, $id);
+    public function update($request, $id);
 
-    public function delete($id);
+    public function delete( $request);
+    public function store($request);
+    public function edit($id);
 
     public function find($id);
 }

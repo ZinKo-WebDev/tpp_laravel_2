@@ -2,17 +2,15 @@
 
 namespace App\Http\Repository;
 
-interface CourseRepositoryInterface
-
+interface ArticleRepositoryInterface
 {
     public function all();
 
-    public function create( $data);
+    public function create(array $data);
 
-    public function update( $data, $id);
+    public function update(array $data, $id);
 
     public function delete($id);
 
     public function find($id);
 }
-

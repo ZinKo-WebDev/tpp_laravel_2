@@ -20,7 +20,7 @@ class ProductController extends Controller
     {
         return view('product.create');
     }
-    public function store(ProductRequest $request) // ProductRequest $request
+    public function store(ProductRequest $request)
     {
         $this->productRepository->store($request);
 
@@ -42,14 +42,7 @@ class ProductController extends Controller
 
     public function destroy(Product $productdel)
     {
-        foreach ($productdel->images as $image) {
-            $imagePath = public_path($image->image_path);
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
-            }
-            $image->delete();
-        }
-        $productdel->delete();
+        $this->productRepository->delete($productdel);
         return redirect()->route('productIndex');
     }
 }
