@@ -16,22 +16,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('category', [CategoryController::class,'index'])->name('categoryIndex');
-Route::get('product', [ProductController::class,'index'])->name('productIndex');
 
+
+Route::get('category', [CategoryController::class,'index'])->name('categoryIndex');
 Route::get('/category/create', [CategoryController::class,'create'])->name('categoryCreate');
 Route::post('/category/store', [CategoryController::class,'store'])->name('categoryStore');
 
 Route::get('/category/{id}', [CategoryController::class,'edit'])->name('categoryEdit');
 Route::post('/category/update/{id}', [CategoryController::class,'update'])->name('categoryUpdate');
+Route::post('/category/{deldata}', [CategoryController::class,'destroy'])->name('categoryDelete');
 
+
+Route::get('product', [ProductController::class,'index'])->name('productIndex');
 Route::get('/product/create', [ProductController::class,'create'])->name('productCreate');
 Route::post('/product/store', [ProductController::class,'store'])->name('productStore');
-
 Route::get('/product/{id}', [ProductController::class,'edit'])->name('productEdit');
 Route::post('/product/update/{id}', [ProductController::class,'update'])->name('productUpdate');
-
-Route::post('/category/{deldata}', [CategoryController::class,'destroy'])->name('categoryDelete');
 Route::post('/product/{productdel}', [ProductController::class,'destroy'])->name('productDelete');
 
 Route::resource('articles', ArticleController::class);
@@ -55,6 +55,8 @@ Route::put('roles/{roleId}/give-permissions', [RoleController::class,'givePermis
 Route::resource('users', UserController::class);
 Route::get('users/{userID}/delete', [UserController::class,'destroy']);
 
-// students and courses
+
 Route::resource('students', StudentController::class);
 Route::resource('courses', CourseController::class);
+
+

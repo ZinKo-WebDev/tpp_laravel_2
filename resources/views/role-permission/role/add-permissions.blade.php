@@ -20,30 +20,30 @@
                         @method('PUT')
                         <div class="mb-3">
                             @error('permission')
-                                <span class="text-danger">
+                            <span class="text-danger">
                                     {{$message}}
                                 </span>
                             @enderror
                             <label for="" class="mb-2">Permissions</label>
 
-{{--                            <select class="form-select" size="3" aria-label="size 3 select example">--}}
-{{--                                <option selected>Open this select menu</option>--}}
-{{--                                <option value="1">One</option>--}}
-{{--                                <option value="2">Two</option>--}}
-{{--                                <option value="3">Three</option>--}}
-{{--                            </select>--}}
+                            {{--                            <select class="form-select" size="3" aria-label="size 3 select example">--}}
+                            {{--                                <option selected>Open this select menu</option>--}}
+                            {{--                                <option value="1">One</option>--}}
+                            {{--                                <option value="2">Two</option>--}}
+                            {{--                                <option value="3">Three</option>--}}
+                            {{--                            </select>--}}
 
 
-                                <select name="permission[]" multiple class="form-select" size="3" aria-label="size 3 select example">
+                            <select name="permission[]" multiple class="form-select" size="3" aria-label="size 3 select example">
 
-                                        <option value="name">
-                                            @foreach($permissions as $permission)
-                                                <option value="{{$permission}}"  {{in_array($permission->id,$rolePermissions) ? 'selected' : ''}}>
-                                                    {{$permission->name}}
-                                                </option>
-                                            @endforeach
-                                        </option>
-                                </select>
+                                <option value="name">
+                                @foreach($permissions as $permission)
+                                    <option value="{{$permission}}"  {{in_array($permission->id,$rolePermissions) ? 'selected' : ''}}>
+                                        {{$permission->name}}
+                                    </option>
+                                    @endforeach
+                                    </option>
+                            </select>
 
                         </div>
                         <div class="mb-3">

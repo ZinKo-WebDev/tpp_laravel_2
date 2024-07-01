@@ -1,16 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Repository\PermissionRepositoryInterface;
 use App\Http\Requests\PermissionRequest;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
+    public function __construct( )
+    {
+
+    }
     public function index(){
         $permissions = Permission::get();
-        return view('role-permission.permission.index',[ // compact data to index.blade
+        return view('role-permission.permission.index',[
             'permissions' => $permissions
         ]);
     }
@@ -24,7 +28,7 @@ class PermissionController extends Controller
         return redirect('permissions')->with('success','Permission created successfully');
     }
     public function edit(Permission $permission){
-//        return ($permission);
+
         return view('role-permission.permission.edit',[
             'permission' => $permission
         ]);
